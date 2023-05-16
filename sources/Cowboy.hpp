@@ -9,12 +9,12 @@ namespace ariel {
         private:
             int num_of_bullets = 6;
         public:
-            Cowboy(std::string name, Point& location);
+            //Cowboy(std::string name, Point& location);
             Cowboy(std::string name, Point location);
             ~Cowboy()= default;
             bool hasboolets();
             void reload();
-            void shoot(Character& enemy);
+            void shoot(Character *enemy);
             std::string print() override;
         };
 }

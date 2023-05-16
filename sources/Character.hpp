@@ -8,16 +8,17 @@ namespace ariel {
     class Character {
         private:
             int hit_points;
-            Point &location;
+            Point location;
             std::string name;
+            
         public:
-            Character(std::string name, Point& location, int hit_point);
+            bool isCapten = false,inTeam = false;
             Character(std::string name, Point location, int hit_point);
             ~Character() = default;
             virtual std::string print();
             virtual bool isAlive() const;
             Point getLocation() const;
-            virtual double distance(const Character& other) const;
+            virtual double distance(const Character* other) const;
             virtual void hit(int num);
             virtual std::string getName() const;
             void setX(double x);

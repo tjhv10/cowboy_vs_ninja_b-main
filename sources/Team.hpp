@@ -15,16 +15,17 @@ namespace ariel {
         private:
             array<Character *, 10> fighters = {nullptr}; 
             Character* fighters_leader;
-            int ccount = 0,ncount = 0;
+            unsigned long ccount = 0,ncount = 0;
         public:
+            Team();
             Team(Character* leader);
             ~Team() = default;
             bool isNinja(Character *character);
             bool isCowboy(Character *character);
-            void attack(Team* enemy);
-            void add(Character* character);
+            virtual void attack(Team* enemy);
+            virtual void add(Character* character);
             std::string print() const;
-            int stillAlive() const;
+            int stillAlive();
     };
 }
 

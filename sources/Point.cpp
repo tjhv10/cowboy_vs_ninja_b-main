@@ -6,8 +6,16 @@ using namespace std;
 Point::Point() : x(0), y(0) {
 
 }
-Point::Point(double x, double y): x(x), y(y){
-    
+// ariel::Point::Point(Point& other)
+// {
+//     Point(other.getX(),other.getY());
+// }
+ariel::Point::Point(Point *other)
+{
+    Point(other->getX(),other->getY());
+}
+Point::Point(double x, double y) : x(x), y(y)
+{
 }
 double Point::distance(const Point& other) const{
     double dx = this->x - other.x;
@@ -34,7 +42,12 @@ void ariel::Point::setY(double y)
 string Point::print() const{
     return "x: "+to_string(x)+ " y: "+to_string(y);
 }
-void Point::moveTowards(Point& start, Point& end, double dis){
+Point Point::moveTowards(Point& start, Point& end, double dis){
+    if (dis<0)
+    {
+        throw invalid_argument("distance needs to be positive");
+    }
+    
     double d = start.distance(end);
     if (d <= dis) {
         start = end;
@@ -43,4 +56,5 @@ void Point::moveTowards(Point& start, Point& end, double dis){
         start.setX((1 - dis / d) * start.x + dis / d * end.x);
         start.setY((1 - dis / d) * start.y + dis / d * end.y);
     }
+    return start;
 }

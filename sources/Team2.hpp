@@ -5,6 +5,7 @@
 #include "OldNinja.hpp"
 #include "TrainedNinja.hpp"
 #include "YoungNinja.hpp"
+#include "Team.hpp"
 #include <iostream>
 #include <memory>
 
@@ -12,18 +13,15 @@
 using namespace std;
 
 namespace ariel {
-    class Team2{
+    class Team2:public Team{
         private:
             array<Character *, 10> fighters = {nullptr}; 
             Character* fighters_leader;
-            int ccount = 0,ncount = 0;
+            unsigned long ccount = 0,ncount = 0;
         public:
-            Team2(Character* character_leader);
+            Team2(Character* leader);
             ~Team2()=default;
             void add(Character* character);
-            void attack(Team2* enemy);
-            bool isNinja(Character *character);
-            bool isCowboy(Character *character);
             int stillAlive() const;
             std::string print();
     };
