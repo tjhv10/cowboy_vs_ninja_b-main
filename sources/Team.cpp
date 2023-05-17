@@ -1,170 +1,3 @@
-// #include "Team.hpp"
-// using namespace ariel;
-// using namespace std;
-// ariel::Team::Team()
-// {
-// }
-// Team::Team(Character* fighters_leader) : fighters_leader(fighters_leader)
-// {
-//     if (fighters_leader->isCapten)
-//     {
-//         throw runtime_error("fighters_leader is already a capten.");
-//     }
-//     fighters_leader->isCapten = true;
-
-//     add(fighters_leader);
-// }
-// void Team::add(Character* fighter){
-//     if (fighter->inTeam == true)
-//     {
-//         throw runtime_error("The character you provided is already in a fighters.");
-//     }
-//     if(ccount+ncount<10)
-//     {
-//         if (isNinja(fighter))
-//         {
-//             fighters[9-ncount] = fighter;
-//             ncount++;
-//             fighter->inTeam =true;
-//         }
-//         else if (isCowboy(fighter))
-//         {
-//             fighters[ccount] = fighter;
-//             ccount++;
-//             fighter->inTeam =true;
-//         }
-//         else
-//         throw runtime_error("The character you provided is not a cowboy or a ninja");
-//     }
-//     else throw runtime_error("You can add up to 10 characters to a fighters.");
-// }
-// bool Team::isNinja(Character *character)
-// {
-//     Ninja *ninja = dynamic_cast<Ninja *>(character);
-//     if(ninja!=NULL)
-//         return true;
-//     return false;
-// }
-// bool Team::isCowboy(Character *character)
-// {
-//     Cowboy *cowboy = dynamic_cast<Cowboy *>(character);
-//     if(cowboy!=NULL)
-//         return true;
-//     return false;
-// }
-// Character* Team::closestToLeader(Team * team)
-// {
-//     Character *closest = nullptr;
-//     int minDis = 2147483647;
-//     for (unsigned long c = 0; c < fighters.size(); c++)
-//     {
-//         if(team->fighters[c]!=nullptr){
-//             if (team->fighters[c]->isAlive()==false)
-//             {
-//                 continue;
-//             }
-//             if (fighters_leader->distance(team->fighters[c]) < minDis)
-//             {
-//                 minDis = fighters_leader->distance(team->fighters[c]);
-//                 closest = team->fighters[c];
-//             }
-//         }
-//     }
-    
-//     return closest;
-// }
-// void Team::choose_new_leader()
-// {
-//     Character *closest = nullptr;
-//     int minDis = 2147483647;
-//     for (unsigned long c = 0; c<fighters.size(); c++)
-//     {
-//         if(fighters[c]!=nullptr){
-//         if (fighters[c]->isAlive()==false)
-//         {
-//             continue;
-//         }
-//         if (fighters_leader->distance(fighters[c]) < minDis)
-//         {
-//             minDis = fighters_leader->distance(fighters[c]);
-//             closest = fighters[c];
-//         }
-//         }
-//     }
-//     closest->isCapten = true;
-//     fighters_leader = closest;
-// }
-
-// void Team::attack(Team* enemyTeam)
-// {
-//     if (enemyTeam == nullptr)
-//     {
-//         throw invalid_argument("Put a valid ptr to a fighters.");
-//     }
-//     if (this==enemyTeam)
-//     {
-//         throw runtime_error("you cant attack yourself.");
-//     }
-//     if (enemyTeam->stillAlive()<=0)
-//     {
-//         throw runtime_error("you cant attack dead fighters.");
-//     }
-    
-//     if(!fighters_leader->isAlive())
-//     {   if (this->stillAlive()>0)
-//         {
-//             choose_new_leader();
-//         }
-//         else 
-//         {
-//             throw runtime_error("This team is dead");
-//         }
-//     }
-    
-//     Character* target = closestToLeader(enemyTeam);
-//     for (unsigned long c =0; c < fighters.size(); c++)
-//     {
-//         if(fighters[c]!=nullptr){
-//         if (!(fighters[c]->isAlive()))
-//         {   
-//             continue;
-//         }
-//         if (target->isAlive())
-//         {
-//             fighters[c]->attack(target);
-//             continue;
-//         }
-//         if(!enemyTeam->stillAlive())
-//         {
-//             return;
-//         }
-//         // target = closestToLeader(enemyTeam); 
-//         }  
-//     }
-    
-// }
-// int Team::stillAlive(){
-//     int count=0;
-//     for (unsigned long c =0; c < fighters.size(); c++)
-//     {
-//         if (fighters[c]!=nullptr&&fighters[c]->isAlive())
-//         {
-//             count ++;
-//         }
-//     }
-//     return count;
-// }
-// string Team::print() const{ 
-//     string end = "";
-//     for (size_t i = 0; i < fighters.size(); i++) 
-//     {
-//         if(fighters[i]!=NULL)
-//             end += fighters[i]->print();
-//     }
-//     return end;
-// }
-
-
 #include "Team.hpp"
 #include <iostream>
 #include <stdexcept>
@@ -172,52 +5,51 @@
 using namespace std;
 namespace ariel
 {
-    // Constructors and operators
     Team::Team(Character *leader) : leader(leader)
     {
-        if(leader->inTeam==true){
+        if(this->leader->inTeam==true){
             throw runtime_error("Character is already in a team");
         }
-        team.push_back(leader);
-        leader->inTeam=true;
+        team.push_back(this->leader);
+        this->leader->inTeam=true;
     }
 
-    Team::Team(Team &other) : leader(other.leader)
+    Team::Team(Team &enemy) : leader(enemy.leader)
     {
-        for (auto it = other.team.begin(); it != other.team.end(); it++)
+        for (auto c = enemy.team.begin(); c != enemy.team.end(); c++)
         {
-            team.push_back(*it);
+            team.push_back(*c);
         }
     }
 
-    Team::Team(Team &&other) : leader(other.leader)
+    Team::Team(Team &&enemy) : leader(enemy.leader)
     {
-        for (auto it = other.team.begin(); it != other.team.end(); it++)
+        for (auto c = enemy.team.begin(); c != enemy.team.end(); c++)
         {
-            team.push_back(*it);
+            team.push_back(*c);
         }
     }
 
-    //SmartTeam::SmartTeam(Character *leader) : Team(leader) {}
+    //SmartTeam::SmartTeam(Character *this->leader) : Team(this->leader) {}
 
     // Destructors
     Team::~Team()
     {
-        for (list<Character *>::iterator it = team.begin(); it != team.end(); it++)
+        for (list<Character *>::iterator c = team.begin(); c != team.end(); c++)
         {
-            //delete *it;
+            //delete *c;
         }
     }
 
     // Functions
     void Team::add(Character *fighter)
     {
-        if (team.size() == 10)
-        {
-            throw runtime_error("Team is full");
-        }
         if(fighter->inTeam==true){
-            throw runtime_error("Character is already in a team");
+            throw runtime_error("Fighter is already in a team");
+        }
+        if (team.size() >= 10)
+        {
+            throw runtime_error("Team is full.");
         }
         if (isCowboy(fighter))
         {
@@ -251,51 +83,50 @@ namespace ariel
 
     bool Team::replaceLeader()
     {
-        int minDistance = -1;
-        int newLeaderIndex = -1;
-        for (auto it = team.begin(); it != team.end(); it++)
+        int minDis = -1,index = -1;
+        for (auto c = team.begin(); c != team.end(); c++)
         {
-            if (!((*it)->isAlive()))
+            if (!((*c)->isAlive()))
             {
                 continue;
             }
-            if (minDistance == -1)
+            if (minDis == -1)
             {
-                minDistance = leader->distance(*it);
-                newLeaderIndex = distance(team.begin(), it);
+                minDis = this->leader->distance(*c);
+                index = distance(team.begin(), c);
                 continue;
             }
-            if (leader->distance(*it) < minDistance)
+            if (this->leader->distance(*c) < minDis)
             {
-                minDistance = leader->distance(*it);
-                newLeaderIndex = distance(team.begin(), it);
+                minDis = this->leader->distance(*c);
+                index = distance(team.begin(), c);
             }
         }
-        if (newLeaderIndex == -1)
+        if (index == -1)
         {
             return false;
         }
-        auto it = team.begin();
-        advance(it, newLeaderIndex);
-        leader = *it;
+        auto c = team.begin();
+        advance(c, index);
+        this->leader = *c;
         return true;
     }
 
     void Team::print()
     {
-        for (auto it = team.begin(); it != team.end(); it++)
+        for (auto c = team.begin(); c != team.end(); c++)
         {
-            cout << (*it)->print() << endl;
+            cout << (*c)->print() << "\n";
         }
-        cout << endl;
+        cout << "\n";
     }
 
     int Team::stillAlive()
     {
         int counter = 0;
-        for (auto it = team.begin(); it != team.end(); it++)
+        for (auto c = team.begin(); c != team.end(); c++)
         {
-            if ((*it)->isAlive())
+            if ((*c)->isAlive())
             {
                 counter++;
             }
@@ -305,69 +136,68 @@ namespace ariel
 
     Character* Team::closestToLeader(Team * enemy)
     {
-        int minDistance = -1;
+        int minDis = -1;
         Character *closest = nullptr;
-        for (auto it = enemy->team.begin(); it != enemy->team.end(); it++)
+        for (auto c = enemy->team.begin(); c != enemy->team.end(); c++)
         {
-            if (!((*it)->isAlive()))
+            if (!((*c)->isAlive()))
             {
                 continue;
             }
-            if (minDistance == -1)
+            if (minDis == -1)
             {
-                minDistance = leader->distance(*it);
-                closest = *it;
+                minDis = this->leader->distance(*c);
+                closest = *c;
                 continue;
             }
-            if (leader->distance(*it) < minDistance)
+            if (this->leader->distance(*c) < minDis)
             {
-                minDistance = leader->distance(*it);
-                closest = *it;
+                minDis = this->leader->distance(*c);
+                closest = *c;
             }
         }
         return closest;
     }
 
-    void Team::attack(Team *other)
+    void Team::attack(Team *enemy)
     {
-        if(!other){
+        if(!enemy){
             throw invalid_argument("Can't attack a nullptr");
         }
         if (!isLeaderAlive())
         {
             if (!replaceLeader())
             {
-                cout << "The team has lost" << endl;
+                cout << "The team has lost" << "\n";
                 return;
             }
         }
-        if (!other->stillAlive())
+        if (!enemy->stillAlive())
         {
             throw runtime_error("Can't attack a dead team");
         }
         
-        Character *closest = closestToLeader(other);
+        Character *closest = closestToLeader(enemy);
         if(closest == nullptr){
 
-            cout << "closest is nullptr" << endl;
+            throw runtime_error("Closest to leader is null.");
         }
         
-        for (auto it = team.begin(); it != team.end(); it++)
+        for (auto c = team.begin(); c != team.end(); c++)
         {
-            if (!((*it)->isAlive()))
+            if (!((*c)->isAlive()))
             {   
                 continue;
             }
             if (!closest->isAlive())
             {
-                closest = closestToLeader(other);
+                closest = closestToLeader(enemy);
             }
             if(!closest)
             {
                 return;
             }
-            (*it)->attack(closest);
-            
+            (*c)->attack(closest);
         }
     }
 
@@ -375,7 +205,7 @@ namespace ariel
 
     Character *Team::getLeader() const
     {
-        return leader;
+        return this->leader;
     }
 
     list<Character *>& Team::getTeam()
@@ -396,9 +226,8 @@ bool Team::isCowboy(Character *character)
         return true;
     return false;
 }
-
 bool Team::isLeaderAlive()
 {
-    return leader->isAlive();
+    return this->leader->isAlive();
 }
 }
