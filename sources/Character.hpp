@@ -10,11 +10,19 @@ namespace ariel {
             int health;
             Point location;
             std::string name;
-            
-        public:
             bool isCapten = false,inTeam = false;
+        public:
+            Character(const std::string& name, int level);
+            Character(const Character& other);
+            Character& operator=(const Character& other);
+            Character(Character&& other) noexcept;
+            Character& operator=(Character&& other) noexcept;
+            bool isCaption();
+            bool isInTeam();
+            void setIsCapten(bool capten);
+            void setInTeam(bool isInTeam);
+            virtual ~Character() = default;    
             Character(std::string name, Point location, int hit_point);
-            ~Character() = default;
             virtual std::string print();
             bool isAlive() const;
             virtual void attack(Character* enemy)=0;
@@ -22,8 +30,8 @@ namespace ariel {
             double distance(const Character* other) const;
             void hit(int num);
             std::string getName() const;
-            void setX(double x);
-            void setY(double y);
+            void setX(double x_coor);
+            void setY(double y_coor);
             int getHealth();
         };
 }

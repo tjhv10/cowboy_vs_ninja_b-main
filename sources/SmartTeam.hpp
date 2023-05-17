@@ -1,32 +1,20 @@
 #ifndef SMART_TEAM_HPP
 #define SMART_TEAM_HPP
 
+#include "Cowboy.hpp"
 #include "OldNinja.hpp"
 #include "TrainedNinja.hpp"
 #include "YoungNinja.hpp"
-#include "Cowboy.hpp"
 #include "Team.hpp"
-
 #include <iostream>
-#include <memory>
 
 using namespace std;
 
 namespace ariel {
-    class SmartTeam:public Team{
-        private:
-            array<Character *, 10> fighters = {nullptr}; 
-            Character* fighters_leader;
-            unsigned long ccount = 0,ncount = 0;
+    class SmartTeam : public Team{
         public:
-            SmartTeam(Character* character_leader);
-            ~SmartTeam()=default;
-            void attack(SmartTeam* enemy);
-            // void add(Character* character);
-            // bool isNinja(Character *character);
-            // bool isCowboy(Character *character);
-            // int stillAlive() const;
-            // std::string print();
+            SmartTeam(Character* leader);
+            void attack(Team* other)override;
     };
 }
 #endif

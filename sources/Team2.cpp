@@ -4,14 +4,14 @@ using namespace std;
 Team2::Team2(Character* leader):Team(leader){}
 void Team2::add(Character *fighter)
 {   
-    if(fighter->inTeam==true){
+    if(fighter->isInTeam()==true){
         throw runtime_error("Fighter is already in a team");
     }
     if (getTeam().size() >= 10)
     {
         throw runtime_error("Team is full.");
     }
-    fighter->inTeam=true;
+    fighter->setInTeam(true);
     getTeam().push_back(fighter);
 }
     

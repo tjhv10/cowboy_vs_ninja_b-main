@@ -10,16 +10,13 @@ namespace ariel {
         double y; 
     public:
         Point();
-        //Point(Point &other);
-        Point(Point *other);
-        Point(double x_coor, double y_coor);
-        ~Point() = default; 
+        Point(double x_coor, double y_coor); 
         double getX();
         double getY();
-        void setX(double x);
-        void setY(double y);
+        void setX(double x_coor);
+        void setY(double y_coor);
         std::string print() const;
-        static Point moveTowards(Point& source, Point& destination, double distance);
+        static Point moveTowards(const Point& source, const Point& destination, double distance);
         double distance(const Point& other) const;
     };
 }

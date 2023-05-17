@@ -45,6 +45,7 @@
 #include "OldNinja.hpp"
 #include "TrainedNinja.hpp"
 
+
 using namespace std;
 
 namespace ariel
@@ -57,11 +58,14 @@ namespace ariel
 
     public:
         Team(Character *leader);
-        Team(Team &other);
+        Team(const std::string& name, int level);
+        Team(const Team& other);
+        Team& operator=(const Team& other);
+        Team(Team&& other) noexcept;
+        Team& operator=(Team&& other) noexcept;
         virtual ~Team();
-        Team(Team &&other);
         virtual void add(Character *fighter);
-        void attack(Team *other);
+        virtual void attack(Team *other);
         void print();
         int stillAlive();
         bool isNinja(Character *character);

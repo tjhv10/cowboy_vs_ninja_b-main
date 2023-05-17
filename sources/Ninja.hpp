@@ -9,8 +9,7 @@ namespace ariel {
         private:
             int speed;
         public:
-            Ninja(std::string name, Point& location,int speed , int hit_points);
-            ~Ninja() = default; 
+            Ninja(std::string name, Point& location,int speed , int hit_points); 
             std::string print() override;
             void slash(Character* enemy);
             virtual void move(Character* enemy);

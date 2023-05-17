@@ -7,44 +7,22 @@ namespace ariel
 {
     Team::Team(Character *leader) : leader(leader)
     {
-        if(this->leader->inTeam==true){
+        if(this->leader->isInTeam()==true){
             throw runtime_error("Character is already in a team");
         }
         team.push_back(this->leader);
-        this->leader->inTeam=true;
+        this->leader->setInTeam(true);
     }
-
-    Team::Team(Team &enemy) : leader(enemy.leader)
-    {
-        for (auto c = enemy.team.begin(); c != enemy.team.end(); c++)
-        {
-            team.push_back(*c);
-        }
-    }
-
-    Team::Team(Team &&enemy) : leader(enemy.leader)
-    {
-        for (auto c = enemy.team.begin(); c != enemy.team.end(); c++)
-        {
-            team.push_back(*c);
-        }
-    }
-
-    //SmartTeam::SmartTeam(Character *this->leader) : Team(this->leader) {}
-
-    // Destructors
     Team::~Team()
     {
         for (list<Character *>::iterator c = team.begin(); c != team.end(); c++)
         {
-            //delete *c;
+            delete *c;
         }
     }
-
-    // Functions
     void Team::add(Character *fighter)
     {
-        if(fighter->inTeam==true){
+        if(fighter->isInTeam()==true){
             throw runtime_error("Fighter is already in a team");
         }
         if (team.size() >= 10)
@@ -54,33 +32,14 @@ namespace ariel
         if (isCowboy(fighter))
         {
             team.push_front(fighter);
-            fighter->inTeam=true;
+            fighter->setInTeam(true);
         }
         else if (isNinja(fighter))
         {
             team.push_back(fighter);
-            fighter->inTeam=true;
+            fighter->setInTeam(true);
         }
     }
-
-    // void SmartTeam::add(Character *fighter)
-    // {
-    //     if (getTeam().size() == 10)
-    //     {
-    //         throw runtime_error("Team is full");
-    //     }
-    //     if (isCowboy(fighter))
-    //     {
-    //         getTeam().push_front(fighter);
-    //         fighter->inTeam=true;
-    //     }
-    //     else if (isNinja(fighter))
-    //     {
-    //         getTeam().push_back(fighter);
-    //         fighter->inTeam=true;
-    //     }
-    // }
-
     bool Team::replaceLeader()
     {
         int minDis = -1,index = -1;

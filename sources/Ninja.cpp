@@ -6,7 +6,8 @@ using namespace std;
 Ninja::Ninja(string name, Point& location, int hit_points, int speed): Character(name, location, hit_points) , speed(speed){
     
 }
-void Ninja::slash(Character* enemy){
+void Ninja::slash(Character *enemy)
+{
     if (this==enemy)
     {
         throw runtime_error("You cant slash yourself.");
@@ -26,7 +27,7 @@ void Ninja::move(Character* enemy){
     {
         Point enemyPos =enemy->getLocation();
         Point myPos = this->getLocation();
-        Point::moveTowards(myPos,enemyPos, speed);
+        myPos = Point::moveTowards(myPos,enemyPos, speed);
         this->setX(myPos.getX());
         this->setY(myPos.getY());
     }

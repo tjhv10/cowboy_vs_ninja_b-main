@@ -3,7 +3,23 @@
 
 using namespace ariel;
 using namespace std;
-Character::Character(string name, Point location, int health):name(name) , location(location), health(health)
+bool ariel::Character::isCaption()
+{
+    return isCapten;
+}
+bool ariel::Character::isInTeam()
+{
+    return inTeam;
+}
+void ariel::Character::setIsCapten(bool capten)
+{
+    isCapten = capten;
+}
+void ariel::Character::setInTeam(bool isInTeam)
+{
+    inTeam = isInTeam;
+}
+Character::Character(string name, Point location, int health) : name(name), location(location), health(health)
 {
 }
 
@@ -22,7 +38,7 @@ double Character::distance(const Character* other) const{
     return this->location.distance(other->getLocation());
 }
 string Character::print(){
-    return "Name: "+ this->name + ". Location: " +this->location.print() +". Hit points:"+ to_string(this->health)+"\n";
+    return "Name: "+ this->name + ". Location: " + this->location.print() +". Hit points:"+ to_string(this->health)+"\n";
 }         
 void Character::hit(int num){
     if(num<0)

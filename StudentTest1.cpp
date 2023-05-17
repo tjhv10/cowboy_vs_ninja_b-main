@@ -455,15 +455,15 @@ TEST_SUITE("Battle simulations") {
         auto old_ninja = create_oninja(2, 2);
         auto young_ninja2 = create_yninja(3, 3);
         auto cowboy = create_cowboy(-6, -6);
-	    auto cowboy2 = create_cowboy(-7, -7);
-	    auto cowboy3 = create_cowboy(-8, -8);
+	auto cowboy2 = create_cowboy(-7, -7);
+	auto cowboy3 = create_cowboy(-8, -8);
         Team team2{young_ninja};
         team2.add(trained_ninja);
         team2.add(old_ninja);
         team2.add(young_ninja2);
         team2.add(cowboy);
-	    team2.add(cowboy2);
-	    team2.add(cowboy3);
+	team2.add(cowboy2);
+	team2.add(cowboy3);
 
         CHECK_EQ(team2.stillAlive(), 7);
 
@@ -485,11 +485,10 @@ TEST_SUITE("Battle simulations") {
         CHECK(!young_ninja2->isAlive());
 
         multi_attack(2, team, team2);
-        CHECK_NOTHROW(team.attack(&team2)); // The entire enemy team will be dead before every cowboy shoots, the attack should stop and not throw an exception
-        CHECK_FALSE(young_ninja2->isAlive());
-        //cout<<team2.stillAlive()<<endl<<team2.print(); // Young ninja should be dead
+        CHECK_NOTHROW(team.attack(
+                &team2)); // The entire enemy team will be dead before every cowboy shoots, the attack should stop and not throw an exception
+        CHECK_FALSE(young_ninja2->isAlive()); // Young ninja should be dead
         CHECK_THROWS_AS(team.attack(&team2), std::runtime_error); // Attacking a dead team should throw an exception
-        
     }
 
     /*
@@ -634,7 +633,7 @@ TEST_SUITE("Battle simulations") {
                 team.add(random_char());
                 team2.add(random_char());
             }
-            
+
             simulate_battle(team, team2);
 
             CHECK(((team.stillAlive() && !team2.stillAlive()) || (!team.stillAlive() && team2.stillAlive())));
@@ -649,7 +648,7 @@ TEST_SUITE("Battle simulations") {
             }
 
             simulate_battle(team, team2);
-            cout<<"hi\n";
+
             CHECK(((team.stillAlive() && !team2.stillAlive()) || (!team.stillAlive() && team2.stillAlive())));
         }
 
@@ -664,7 +663,6 @@ TEST_SUITE("Battle simulations") {
             simulate_battle(team, team2);
 
             CHECK(((team.stillAlive() && !team2.stillAlive()) || (!team.stillAlive() && team2.stillAlive())));
-            
         }
     }
 }

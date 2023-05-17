@@ -8,7 +8,6 @@ using namespace std;
 Cowboy::Cowboy(std::string name, Point location):Character(name,Point(location.getX(),location.getY()),110)
 {
 }
-
 void Cowboy::shoot(Character* enemy){
     if(enemy->isAlive()==false)
         throw runtime_error("You cannot attack dead enemy.");
