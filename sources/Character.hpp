@@ -7,7 +7,7 @@
 namespace ariel {
     class Character {
         private:
-            int hit_points;
+            int health;
             Point location;
             std::string name;
             
@@ -16,11 +16,12 @@ namespace ariel {
             Character(std::string name, Point location, int hit_point);
             ~Character() = default;
             virtual std::string print();
-            virtual bool isAlive() const;
+            bool isAlive() const;
+            virtual void attack(Character* enemy)=0;
             Point getLocation() const;
-            virtual double distance(const Character* other) const;
-            virtual void hit(int num);
-            virtual std::string getName() const;
+            double distance(const Character* other) const;
+            void hit(int num);
+            std::string getName() const;
             void setX(double x);
             void setY(double y);
             int getHealth();

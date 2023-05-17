@@ -3,7 +3,7 @@
 
 using namespace ariel;
 using namespace std;
-Character::Character(string name, Point location, int hit_points):name(name) , location(location), hit_points(hit_points)
+Character::Character(string name, Point location, int health):name(name) , location(location), health(health)
 {
 }
 
@@ -22,20 +22,21 @@ double Character::distance(const Character* other) const{
     return this->location.distance(other->getLocation());
 }
 string Character::print(){
-    return "Name: "+ this->name + ". Location: " +this->location.print() +". Hit points:"+ to_string(this->hit_points)+"\n";
+    return "Name: "+ this->name + ". Location: " +this->location.print() +". Hit points:"+ to_string(this->health)+"\n";
 }         
 void Character::hit(int num){
     if(num<0)
-    throw invalid_argument("You need to hit a positive number of points.");
-    this->hit_points -=num;
+    {
+        throw invalid_argument("You need to hit a positive number of points.");
+    }
+    this->health -=num;
 }
 int Character::getHealth() {
-    return this->hit_points;
+    return this->health;
 }
-bool Character::isAlive() const{
-    if(this->hit_points>0)
-        return true;
-    return false;
+bool Character::isAlive()const{
+
+    return health>0;
 }
 string Character::getName() const{
     return this->name;

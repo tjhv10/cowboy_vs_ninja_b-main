@@ -16,10 +16,12 @@ void Ninja::slash(Character* enemy){
     if(this->isAlive()==false)
     throw runtime_error("You cannot attack an enemy if you are dead.");
     if(this->distance(enemy)<=1)
+    {
         if(enemy->isAlive())
             enemy->hit(40);
+    }
 }
-void Ninja::move(const Character* enemy){
+void Ninja::move(Character* enemy){
     if(this->isAlive()&&enemy->isAlive())
     {
         Point enemyPos =enemy->getLocation();
@@ -29,6 +31,30 @@ void Ninja::move(const Character* enemy){
         this->setY(myPos.getY());
     }
 }
+void Ninja::attack(Character *enemy)
+{
+    if (!this->isAlive())
+        {
+            throw runtime_error("Cant attack when you are not alive.");
+            return;
+        }
+        if (!enemy->isAlive())
+        {
+            throw runtime_error("Cant attack a dead enemy.");
+            return;
+        }
+        if (this->getLocation().distance(enemy->getLocation()) > 1)
+        {
+            move(enemy);
+            return;
+        }
+        slash(enemy);
+}
+
 string Ninja::print() {
-    return "Ninja name: " + this->getName()+". Location: " + this->getLocation().print() + ". ";
+    if (this->isAlive())
+    {
+        return "Ninja name: " + this->getName()+". Location: " + this->getLocation().print() + ". ";
+    }
+    return "";
 }

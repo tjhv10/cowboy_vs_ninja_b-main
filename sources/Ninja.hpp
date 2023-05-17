@@ -13,7 +13,8 @@ namespace ariel {
             ~Ninja() = default; 
             std::string print() override;
             void slash(Character* enemy);
-            virtual void move(const Character* enemy);
+            virtual void move(Character* enemy);
+            void attack(Character* enemy) override;
             };
 }
 

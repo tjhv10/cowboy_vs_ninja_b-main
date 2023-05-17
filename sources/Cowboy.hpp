@@ -12,7 +12,8 @@ namespace ariel {
             //Cowboy(std::string name, Point& location);
             Cowboy(std::string name, Point location);
             ~Cowboy()= default;
-            bool hasboolets();
+            void attack(Character* enemy) override;
+            bool hasboolets() const;
             void reload();
             void shoot(Character *enemy);
             std::string print() override;

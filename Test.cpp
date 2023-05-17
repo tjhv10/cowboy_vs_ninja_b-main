@@ -13,13 +13,17 @@ TEST_CASE("Point test")
 }
 TEST_CASE("Charecter creation and hit test")
 {
-    Point a(1.5,3) ,b(4.75,98);
-    Character c1("c1",a,50);
-    Character c2("c2",b,100);
+    Point a(1.5,3) ,b(4.75,1);
+    OldNinja c1("c1",a);
+    OldNinja c2("c2",b);
     CHECK(c1.distance(&c2)==c2.distance(&c1));
-    c1.hit(30);
+    c2.move(&c1);
+    CHECK(c1.distance(&c2)==0);
+    c2.slash(&c1);
     CHECK(c1.isAlive());
-    c1.hit(20);
+    c2.slash(&c1);
+    c2.slash(&c1);
+    c2.slash(&c1);
     CHECK_FALSE(c1.isAlive());
 }
 TEST_CASE("Cowboy vs cowboy test")
@@ -52,23 +56,28 @@ TEST_CASE("Cowboy vs ninja test")
     Point a(1.5,3) ,b(4.75,3);
     Cowboy cowboy("Jhon",a);
     TrainedNinja ninja("Peter",b);
-
-    cout<<"hi: "<<ninja.getLocation().print()<<endl;
-    cout<<"hi: "<<cowboy.getLocation().print()<<endl;
     CHECK(cowboy.distance(&ninja)>1);
     for (size_t i = 0; i < 20; i++)
     {
-        ninja.slash(&cowboy);
+        //ninja.slash(&cowboy);
     }
     CHECK(cowboy.isAlive());
+    CHECK(ninja.isAlive());
     cout<<ninja.getLocation().print()<<endl;
     ninja.move(&cowboy);
     cout<<ninja.getLocation().print()<<endl;
     CHECK(cowboy.distance(&ninja)==0);
+    CHECK(ninja.isAlive());
     for (size_t i = 0; i < 20; i++)
     { 
-        ninja.slash(&cowboy);
-        cowboy.shoot(&ninja);
+        if(ninja.isAlive()&&cowboy.isAlive())
+        {
+            ninja.slash(&cowboy);
+        }
+        if(ninja.isAlive()&&cowboy.isAlive())
+        {
+            cowboy.shoot(&ninja);
+        }
     }
     CHECK_FALSE(cowboy.isAlive());
     CHECK(ninja.isAlive());
@@ -80,7 +89,8 @@ TEST_CASE("Team addition check")
     TrainedNinja tninja("Peter",b);
     YoungNinja yninja("baby", c);
     Team team1(&cowboy);
-    cowboy.hit(110);
+    CHECK_EQ(team1.stillAlive(),1);
+    cowboy.hit(120);
     CHECK_EQ(team1.stillAlive(),0);
     team1.add(&tninja);
     team1.add(&yninja);

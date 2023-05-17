@@ -1,13 +1,13 @@
-#include "SmartTeam.hpp"
-using namespace ariel;
-using namespace std;
-SmartTeam::SmartTeam(Character* leader):Team(leader){    
-    // add(leader);
+// #include "SmartTeam.hpp"
+// using namespace ariel;
+// using namespace std;
+// SmartTeam::SmartTeam(Character* leader):Team(leader){    
+//     // add(leader);
     // if (isCowboy(leader))
     //     ccount++;
     // else if(isNinja(leader))
     //     ncount++;
-}
+//}
 // void SmartTeam::add(Character* fighter){
 //     if(ccount+ncount<10)
 //     {
@@ -40,21 +40,21 @@ SmartTeam::SmartTeam(Character* leader):Team(leader){
 //         return true;
 //     return false;
 // }
-void SmartTeam::attack(SmartTeam *enemyTeam)
-{
-    if (enemyTeam==nullptr)
-    {
-        throw invalid_argument("Put a valid ptr to a team.");
-    }
-    if (this==enemyTeam)
-    {
-        throw runtime_error("you cant attack yourself.");
-    }
-    if (enemyTeam->stillAlive()==0)
-    {
-        throw runtime_error("you cant attack dead team.");
-    }
-}
+// void SmartTeam::attack(SmartTeam *enemyTeam)
+// {
+//     if (enemyTeam==nullptr)
+//     {
+//         throw invalid_argument("Put a valid ptr to a team.");
+//     }
+//     if (this==enemyTeam)
+//     {
+//         throw runtime_error("you cant attack yourself.");
+//     }
+//     if (enemyTeam->stillAlive()==0)
+//     {
+//         throw runtime_error("you cant attack dead team.");
+//     }
+// }
 // int SmartTeam::stillAlive() const{
 //     return ccount+ncount;
 // }
