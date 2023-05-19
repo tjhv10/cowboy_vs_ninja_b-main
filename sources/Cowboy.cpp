@@ -46,7 +46,7 @@ std::string ariel::Cowboy::print()
 {
     if (this->isAlive())
     {
-        return "Cowboy Name: "+ getName() + ". Location: " +getLocation().print() +"\n";
+        return "C Name: "+ getName() + ". Hit points: "+to_string(this->getHealth())+". Location: " +getLocation().print() +"\n";
     }
     
     return "";

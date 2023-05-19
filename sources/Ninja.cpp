@@ -16,7 +16,7 @@ void Ninja::slash(Character *enemy)
     throw runtime_error("You cannot attack dead enemy.");
     if(this->isAlive()==false)
     throw runtime_error("You cannot attack an enemy if you are dead.");
-    if(this->distance(enemy)<=1)
+    if(this->distance(enemy)<1)
     {
         if(enemy->isAlive())
             enemy->hit(40);
@@ -55,7 +55,7 @@ void Ninja::attack(Character *enemy)
 string Ninja::print() {
     if (this->isAlive())
     {
-        return "Ninja name: " + this->getName()+". Location: " + this->getLocation().print() + ". ";
+        return "N name: " + this->getName()+". Hit points: "+to_string(this->getHealth())+". Location: " + this->getLocation().print() + ". ";
     }
     return "";
 }
