@@ -14,4 +14,3 @@ void Team2::add(Character *fighter)
     fighter->setInTeam(true);
     getTeam().push_back(fighter);
 }
-    

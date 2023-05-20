@@ -4,12 +4,15 @@ using namespace ariel;
 using namespace std;
 
 SmartTeam::SmartTeam(Character* leader):Team(leader){}
-
 Point ariel::SmartTeam::avgLocationNinjas()
 {
     double avgX= 0,avgY=0,count = 0;
     for (auto c = getTeam().begin(); c != getTeam().end(); c++)
     {
+        if ((*c)==nullptr||!((*c)->isAliveS()))
+        {
+            continue;
+        }
         if(isNinja(*c))
         {
             count++;
@@ -18,18 +21,32 @@ Point ariel::SmartTeam::avgLocationNinjas()
         }
 
     }
-    avgX/=count;
-    avgY/=count;
-    return Point(avgX,avgY);
+    return Point(avgX/count,avgY/count);
 }
 Character *ariel::SmartTeam::ClosestNinjaToMyCowboy(Team *enemy)
 {
-    double currntClosestNinjaDistance = DBL_MAX;
+    double currntClosestNinjaDistance = 201;
     Character *closest = nullptr;
     for (auto c = getTeam().begin(); c != getTeam().end(); c++)
     {
+        if ((*c)==nullptr)
+        {
+            continue;
+        }
+        if (!((*c)->isAliveS()))
+            {
+                continue;
+            }
         for (auto n = enemy->getTeam().begin(); n != enemy->getTeam().end(); n++)
         {
+            if ((*c)==nullptr||(*n)==nullptr)
+            {
+                continue;
+            }
+            if (!((*c)->isAliveS()))
+            {
+                continue;
+            }
             if((*c)->distance((*n))<currntClosestNinjaDistance)
             {
                 currntClosestNinjaDistance = (*c)->distance((*n));
@@ -45,22 +62,35 @@ Character *ariel::SmartTeam::ClosestNinjaToNinja(Point p, Team *enemy)
     Character *closest = nullptr;
     for (auto c = enemy->getTeam().begin(); c != enemy->getTeam().end(); c++)
         {
+            if ((*c)==nullptr)
+            {
+                continue;
+            }
+            if (!((*c)->isAliveS()))
+            {
+                continue;
+            }
             if(isNinja((*c))){
-            if (!((*c)->isAlive()))
-            {
-                continue;
-            }
-            if (minDis == -1)
-            {
-                minDis = p.distance((*c)->getLocation());
-                closest = *c;
-                continue;
-            }
-            if (p.distance((*c)->getLocation()) < minDis)
-            {
-                minDis = p.distance((*c)->getLocation());
-                closest = *c;
-            }
+                
+                if ((*c)==nullptr)
+                {
+                    continue;
+                }
+                if (!((*c)->isAliveS()))
+                {
+                    continue;
+                }
+                if (minDis == -1)
+                {
+                    minDis = p.distance((*c)->getLocation());
+                    closest = *c;
+                    continue;
+                }
+                if (p.distance((*c)->getLocation()) < minDis)
+                {
+                    minDis = p.distance((*c)->getLocation());
+                    closest = *c;
+                }
             }
         }
         return closest;
@@ -71,8 +101,9 @@ Character* ariel::SmartTeam::ClosestCowboyToPoint(Point p,Team *enemy)
     Character *closest = nullptr;
     for (auto c = enemy->getTeam().begin(); c != enemy->getTeam().end(); c++)
         {
-            if(isCowboy((*c))){
-            if (!((*c)->isAlive()))
+            if((*c)!=nullptr&&isCowboy((*c))){
+                
+            if (!((*c)->isAliveS()))
             {
                 continue;
             }
@@ -97,8 +128,9 @@ Character* ariel::SmartTeam::FurthestCowboyToPoint(Point p,Team *enemy)
     Character *closest = nullptr;
     for (auto c = enemy->getTeam().begin(); c != enemy->getTeam().end(); c++)
         {
-            if(isCowboy((*c))){
-            if (!((*c)->isAlive()))
+            if((*c)!=nullptr&&isCowboy((*c))){
+                
+            if (!((*c)->isAliveS()))
             {
                 continue;
             }
@@ -121,22 +153,53 @@ void ariel::SmartTeam::attackNinja(Character *enemy)
 {
     for (auto c = getTeam().begin(); c != getTeam().end(); c++)
     {
+        if ((*c)==nullptr)
+        {
+            continue;
+        }
+        if (!((*c)->isAliveS()))
+        {
+            continue;
+        }
         if(isNinja((*c)))
-        (*c)->attack(enemy);
+        {
+            
+            if(enemy->isAliveS())
+                (*c)->attack(enemy);
+        }
     }
 }
 void ariel::SmartTeam::attackCowboy(Character *enemy)
 {
     for (auto c = getTeam().begin(); c != getTeam().end(); c++)
     {
+        if ((*c)==nullptr)
+        {
+            continue;
+        }
+        if (!((*c)->isAliveS()))
+        {
+            continue;
+        }
         if(isCowboy((*c)))
-        (*c)->attack(enemy);
+        {
+            if(enemy->isAliveS())
+                (*c)->attack(enemy);
+        }
     }
 }
 bool ariel::SmartTeam::hasCowboy(Team *enemy)
 {
     for (auto c = enemy->getTeam().begin(); c != enemy->getTeam().end(); c++)
     {
+        if ((*c)==nullptr)
+        {
+            continue;
+        }
+        if (!((*c)->isAliveS()))
+        {
+            continue;
+        }
         if(isCowboy((*c)))
         return true;
     }
@@ -155,18 +218,38 @@ void ariel::SmartTeam::attack(Team *enemy)
     if(hasCowboy(enemy))
     {
         attackNinja(ClosestCowboyToPoint(avgLocationNinjas(),enemy));
+        if(hasCowboy(enemy))
         attackCowboy(FurthestCowboyToPoint(avgLocationNinjas(),enemy));
     }
     else
     {
-        for (auto c = enemy->getTeam().begin(); c != enemy->getTeam().end(); c++)
+        for (auto c = getTeam().begin(); c != getTeam().end(); c++)
         {
+            if ((*c)==nullptr)
+            {
+                continue;
+            }
+            if (!((*c)->isAliveS()))
+            {
+                continue;
+            }
             if(isNinja((*c)))
             {
-                (*c)->attack(ClosestNinjaToNinja((*c)->getLocation(),enemy));
+                if(enemy!=nullptr&&(*c)!=nullptr)
+                {
+                    Character *ca =ClosestNinjaToNinja((*c)->getLocation(),enemy);
+                    if (ca!=nullptr)
+                    {
+                        (*c)->attack(ca);
+                    }
+                    else
+                    continue;
+                }
+                
             }
-            if (isCowboy((*c)))
+            else if (isCowboy((*c)))
             {
+                if(enemy!=nullptr&&(*c)!=nullptr&&ClosestNinjaToMyCowboy(enemy)->isAliveS()==true)
                 (*c)->attack(ClosestNinjaToMyCowboy(enemy));
             }
         }

@@ -6,7 +6,6 @@
 #include "TrainedNinja.hpp"
 #include "YoungNinja.hpp"
 #include "Team.hpp"
-#include "Character.hpp"
 #include <iostream>
 
 using namespace std;

@@ -58,11 +58,11 @@ namespace ariel
 
     public:
         Team(Character *leader);
-        Team(const std::string& name, int level);
-        Team(const Team& other);
-        Team& operator=(const Team& other);
-        Team(Team&& other) noexcept;
-        Team& operator=(Team&& other) noexcept;
+        // Team(const std::string& name, int level);
+        // Team(const Team& other);
+        // Team& operator=(const Team& other);
+        // Team(Team&& other) noexcept;
+        // Team& operator=(Team&& other) noexcept;
         virtual ~Team();
         virtual void add(Character *fighter);
         virtual void attack(Team *other);

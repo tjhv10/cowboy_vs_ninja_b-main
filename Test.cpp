@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "sources/Team.hpp"
+#include "sources/Team2.hpp"
 
 using namespace ariel;
 
@@ -88,7 +89,7 @@ TEST_CASE("Team addition check")
     Cowboy cowboy("Jhon",a);
     TrainedNinja tninja("Peter",b);
     YoungNinja yninja("baby", c);
-    Team team1(&cowboy);
+    Team2 team1(&cowboy);
     CHECK_EQ(team1.stillAlive(),1);
     cowboy.hit(120);
     CHECK_EQ(team1.stillAlive(),0);
@@ -103,7 +104,7 @@ TEST_CASE("Team attack check")
     Cowboy cowboy1("Jhon",a),cowboy2("kobein",d);
     OldNinja oninja1("Peter",b),oninja2("oldy",e);
     YoungNinja yninja1("baby", c),yninja2("jr", f);
-    Team team1(&cowboy1),team2(&cowboy2);
+    Team2 team1(&cowboy1),team2(&cowboy2);
     team1.add(&oninja1);
     team1.add(&yninja1);
     team2.add(&oninja2);

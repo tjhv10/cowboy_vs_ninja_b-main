@@ -50,9 +50,11 @@ void Character::hit(int num){
 int Character::getHealth() {
     return this->health;
 }
-bool Character::isAlive()const{
-
-    return health>0;
+bool Character::isAlive(){
+    return health > 0;
+}
+bool Character::isAliveS(){
+    return health > 0;
 }
 string Character::getName() const{
     return this->name;

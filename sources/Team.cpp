@@ -7,17 +7,20 @@ namespace ariel
 {
     Team::Team(Character *leader) : leader(leader)
     {
-        if(this->leader->isInTeam()==true){
+        if(leader->isInTeam()==true){
             throw runtime_error("Character is already in a team");
         }
-        team.push_back(this->leader);
-        this->leader->setInTeam(true);
+        team.push_back(leader);
+        leader->setInTeam(true);
     }
     Team::~Team()
     {
-        for (list<Character *>::iterator c = team.begin(); c != team.end(); c++)
+        for (list<Character *>::iterator c = getTeam().begin(); c != getTeam().end(); c++)
         {
-            delete *c;
+            if ((*c)!=nullptr)
+            {
+                delete *c;
+            }
         }
     }
     void Team::add(Character *fighter)
@@ -85,10 +88,16 @@ namespace ariel
         int counter = 0;
         for (auto c = team.begin(); c != team.end(); c++)
         {
+            
+            if((*c)==nullptr)
+            {
+                continue;
+            }
             if ((*c)->isAlive())
             {
                 counter++;
             }
+            
         }
         return counter;
     }
