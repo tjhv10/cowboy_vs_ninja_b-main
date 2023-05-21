@@ -54,18 +54,6 @@ auto create_cowboy = [](double x = random_float(), double y = random_float()) {
     return new Cowboy{"Bob", Point{x, y}};
 };
 
-auto random_char(double x = random_float(), double y = random_float()) -> Character * {
-    int flag = static_cast<int>(random_float()) % 4;
-
-    if (flag == 0) return create_cowboy(x, y);
-
-    if (flag == 1) return create_yninja(x, y);
-
-    if (flag == 2) return create_tninja(x, y);
-
-    return create_oninja(x, y);
-}
-
 int main() {
     Point a(32.3,44),b(1.3,3.5);
     cout<<a.print()<<endl;
