@@ -43,9 +43,9 @@ namespace ariel
             fighter->setInTeam(true);
         }
     }
-    bool Team::replaceLeader()
+    bool Team::repLeader()
     {
-        int minDis = -1,index = -1;
+        int minDis = -1,i = -1;
         for (auto c = team.begin(); c != team.end(); c++)
         {
             if (!((*c)->isAlive()))
@@ -55,21 +55,21 @@ namespace ariel
             if (minDis == -1)
             {
                 minDis = this->leader->distance(*c);
-                index = distance(team.begin(), c);
+                i = distance(team.begin(), c);
                 continue;
             }
             if (this->leader->distance(*c) < minDis)
             {
                 minDis = this->leader->distance(*c);
-                index = distance(team.begin(), c);
+                i = distance(team.begin(), c);
             }
         }
-        if (index == -1)
+        if (i == -1)
         {
             return false;
         }
         auto c = team.begin();
-        advance(c, index);
+        advance(c, i);
         this->leader = *c;
         return true;
     }
@@ -102,7 +102,7 @@ namespace ariel
         return counter;
     }
 
-    Character* Team::closestToLeader(Team * enemy)
+    Character* Team::closestCharacterToLeader(Team * enemy)
     {
         int minDis = -1;
         Character *closest = nullptr;
@@ -132,9 +132,9 @@ namespace ariel
         if(!enemy){
             throw invalid_argument("Can't attack a nullptr");
         }
-        if (!isLeaderAlive())
+        if (!LeaderAlive())
         {
-            if (!replaceLeader())
+            if (!repLeader())
             {
                 cout << "The team has lost" << "\n";
                 return;
@@ -145,7 +145,7 @@ namespace ariel
             throw runtime_error("Can't attack a dead team");
         }
         
-        Character *closest = closestToLeader(enemy);
+        Character *closest = closestCharacterToLeader(enemy);
         if(closest == nullptr){
 
             throw runtime_error("Closest to leader is null.");
@@ -159,7 +159,7 @@ namespace ariel
             }
             if (!closest->isAlive())
             {
-                closest = closestToLeader(enemy);
+                closest = closestCharacterToLeader(enemy);
             }
             if(!closest)
             {
@@ -168,9 +168,6 @@ namespace ariel
             (*c)->attack(closest);
         }
     }
-
-    // Getters and Setters
-
     Character *Team::getLeader() const
     {
         return this->leader;
@@ -194,7 +191,7 @@ bool Team::isCowboy(Character *character)
         return true;
     return false;
 }
-bool Team::isLeaderAlive()
+bool Team::LeaderAlive()
 {
     return this->leader->isAlive();
 }

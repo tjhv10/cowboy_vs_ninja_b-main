@@ -58,11 +58,11 @@ namespace ariel
 
     public:
         Team(Character *leader);
-        // Team(const std::string& name, int level);
-        // Team(const Team& other);
-        // Team& operator=(const Team& other);
-        // Team(Team&& other) noexcept;
-        // Team& operator=(Team&& other) noexcept;
+        Team(const std::string& name, int level);
+        Team(const Team& other);
+        Team& operator=(const Team& other);
+        Team(Team&& other) noexcept;
+        Team& operator=(Team&& other) noexcept;
         virtual ~Team();
         virtual void add(Character *fighter);
         virtual void attack(Team *other);
@@ -70,9 +70,9 @@ namespace ariel
         int stillAlive();
         bool isNinja(Character *character);
         bool isCowboy(Character *character);
-        bool isLeaderAlive();
-        bool replaceLeader();
-        Character *closestToLeader(Team *enemy);
+        bool LeaderAlive();
+        bool repLeader();
+        Character *closestCharacterToLeader(Team *enemy);
         Character* getLeader() const;
         list<Character *>& getTeam();
     };
