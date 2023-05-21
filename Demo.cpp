@@ -31,7 +31,7 @@ auto simulate_battle = [](Team &team, Team &team2) {
         i++;
     }
       };
-    double random_float(double min = -100, double max = 100) {
+    double random_float(double min = -1000, double max = 1000) {
     std::default_random_engine generator(static_cast<unsigned long>(std::chrono::system_clock::now().time_since_epoch().count()));
     std::uniform_real_distribution<double> distribution(min, max);
 
@@ -67,68 +67,148 @@ auto random_char(double x = random_float(), double y = random_float()) -> Charac
 }
 
 int main() {
-   //  Point a(32.3,44),b(1.3,3.5);
-   //  assert(a.distance(b) == b.distance(a));
-   //  Cowboy *tom = new Cowboy("Tom", a);
-   //  OldNinja *sushi = new OldNinja("sushi", b);
-   //  tom->shoot(sushi);
-   //  cout << tom->print() <<endl;
+    Point a(32.3,44),b(1.3,3.5);
+    cout<<a.print()<<endl;
+    assert(a.distance(b) == b.distance(a));
+    Cowboy *tom = new Cowboy("Tom", a);
+    OldNinja *sushi = new OldNinja("sushi", b);
+    tom->shoot(sushi);
+    cout << tom->print() <<endl;
+    sushi->move(tom);
+    sushi->slash(tom);
 
-   //  sushi->move(tom);
-   //  sushi->slash(tom);
+    Team team_A(tom); 
+    team_A.add(new YoungNinja("Yogi", Point(64,57)));
 
-   //  Team team_A(tom); 
-   //  team_A.add(new YoungNinja("Yogi", Point(64,57)));
+    // Team b(tom); should throw tom is already in team a
 
-   //  // Team b(tom); should throw tom is already in team a
-
-   //   Team team_B(sushi);
-   //   team_B.add(new TrainedNinja("Hikari", Point(12,81)));
+     Team team_B(sushi);
+     team_B.add(new TrainedNinja("Hikari", Point(12,81)));
 
 
-   //   while(team_A.stillAlive() > 0 && team_B.stillAlive() > 0){
-   //      team_A.attack(&team_B);
-   //      team_B.attack(&team_A);
-   //      team_A.print();
-   //      team_B.print();
-   //   }
+     while(team_A.stillAlive() > 0 && team_B.stillAlive() > 0){
+        team_A.attack(&team_B);
+        team_B.attack(&team_A);
+        team_A.print();
+        team_B.print();
+     }
 
-   //   if (team_A.stillAlive() > 0) cout << "winner is team_A" << endl;
-   //   else cout << "winner is team_B" << endl;
-   //   smart team against dumb team
+     if (team_A.stillAlive() > 0) cout << "winner is team_A" << endl;
+     else cout << "winner is team_B" << endl;
+     //smart team against dumb team
    int w1=0,w2 =0;
-   for (size_t i = 0; i < 10000; i++)
+   for (size_t i = 0; i < 5000; i++)
      {
      SmartTeam team1 = SmartTeam(create_cowboy());
      team1.add(create_cowboy());
      team1.add(create_cowboy());
-     team1.add(create_cowboy());
-     team1.add(create_oninja());
-     team1.add(create_oninja());
-     team1.add(create_tninja());
-     team1.add(create_tninja());
-     team1.add(create_oninja());
-     team1.add(create_oninja());
+     team1.add(create_yninja());
+     team1.add(create_yninja());
+     team1.add(create_yninja());
+     team1.add(create_yninja());
+     team1.add(create_yninja());
+     team1.add(create_yninja());
+     team1.add(create_yninja());
      Team team2 = Team(create_cowboy());
      team2.add(create_cowboy());
      team2.add(create_cowboy());
+     team2.add(create_yninja());
+     team2.add(create_yninja());
+     team2.add(create_yninja());
+     team2.add(create_yninja());
+     team2.add(create_yninja());
+     team2.add(create_yninja());
+     team2.add(create_yninja());
+    simulate_battle(team1,team2); 
+        if (team2.stillAlive() > 0)
+            w2++;
+        else w1++;
+     }
+     for (size_t i = 0; i < 5000; i++)
+     {
+     SmartTeam team1 = SmartTeam(create_cowboy());
+     team1.add(create_cowboy());
+     team1.add(create_cowboy());
+     team1.add(create_yninja());
+     team1.add(create_yninja());
+     team1.add(create_yninja());
+     team1.add(create_yninja());
+     team1.add(create_yninja());
+     team1.add(create_yninja());
+     team1.add(create_yninja());
+     Team team2 = Team(create_cowboy());
      team2.add(create_cowboy());
-     team2.add(create_oninja());
-     team2.add(create_oninja());
-     team2.add(create_tninja());
-     team2.add(create_tninja());
-     team2.add(create_oninja());
-     team2.add(create_oninja());
-        simulate_battle(team1,team2); 
-        if (team1.stillAlive() > 0)
-            w1++;
-        else w2++;
+     team2.add(create_cowboy());
+     team2.add(create_yninja());
+     team2.add(create_yninja());
+     team2.add(create_yninja());
+     team2.add(create_yninja());
+     team2.add(create_yninja());
+     team2.add(create_yninja());
+     team2.add(create_yninja());
+    simulate_battle(team2,team1); 
+        if (team2.stillAlive() > 0)
+            w2++;
+        else w1++;
      }
      cout<<w1<<" "<<w2<<endl;
-    //  cout<<team1.stillAlive()<<" "<<team2.stillAlive()<<endl;
-    //  if (team1.stillAlive() > 0) 
-    //  cout << "winner is team_A" << endl;
-    //  else cout << "winner is team_B" << endl;
+    //smart team against dumb team
+   w1=0,w2 =0;
+   for (size_t i = 0; i < 5000; i++)
+     {
+     Team team1 = Team(create_cowboy());
+     team1.add(create_cowboy());
+     team1.add(create_cowboy());
+     team1.add(create_yninja());
+     team1.add(create_yninja());
+     team1.add(create_yninja());
+     team1.add(create_yninja());
+     team1.add(create_yninja());
+     team1.add(create_yninja());
+     team1.add(create_yninja());
+     Team team2 = Team(create_cowboy());
+     team2.add(create_cowboy());
+     team2.add(create_cowboy());
+     team2.add(create_yninja());
+     team2.add(create_yninja());
+     team2.add(create_yninja());
+     team2.add(create_yninja());
+     team2.add(create_yninja());
+     team2.add(create_yninja());
+     team2.add(create_yninja());
+    simulate_battle(team1,team2); 
+        if (team2.stillAlive() > 0)
+            w2++;
+        else w1++;
+     }
+     for (size_t i = 0; i < 5000; i++)
+     {
+     Team team1 = Team(create_cowboy());
+     team1.add(create_cowboy());
+     team1.add(create_cowboy());
+     team1.add(create_yninja());
+     team1.add(create_yninja());
+     team1.add(create_yninja());
+     team1.add(create_yninja());
+     team1.add(create_yninja());
+     team1.add(create_yninja());
+     team1.add(create_yninja());
+     Team team2 = Team(create_cowboy());
+     team2.add(create_cowboy());
+     team2.add(create_cowboy());
+     team2.add(create_yninja());
+     team2.add(create_yninja());
+     team2.add(create_yninja());
+     team2.add(create_yninja());
+     team2.add(create_yninja());
+     team2.add(create_yninja());
+     team2.add(create_yninja());
+    simulate_battle(team2,team1); 
+        if (team2.stillAlive() > 0)
+            w2++;
+        else w1++;
+     }
+     cout<<w1<<" "<<w2<<endl;
     
      return 0; // no memory issues. Team should free the memory of its members. both a and b teams are on the stack. 
 

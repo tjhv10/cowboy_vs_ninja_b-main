@@ -249,8 +249,16 @@ void ariel::SmartTeam::attack(Team *enemy)
             }
             else if (isCowboy((*c)))
             {
-                if(enemy!=nullptr&&(*c)!=nullptr&&ClosestNinjaToMyCowboy(enemy)->isAliveS()==true)
-                (*c)->attack(ClosestNinjaToMyCowboy(enemy));
+                if(enemy!=nullptr&&(*c)!=nullptr)
+                {
+                    Character *cntmc = ClosestNinjaToMyCowboy(enemy);
+                    if(cntmc!=nullptr){
+                        if(cntmc->isAlive())
+                        {
+                            (*c)->attack(cntmc);
+                        }
+                    }
+                }
             }
         }
     }
