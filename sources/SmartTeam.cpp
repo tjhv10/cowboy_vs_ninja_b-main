@@ -9,7 +9,7 @@ Point ariel::SmartTeam::avgLocationNinjas()
     double avgX= 0,avgY=0,count = 0;
     for (auto c = getTeam().begin(); c != getTeam().end(); c++)
     {
-        if ((*c)==nullptr||!((*c)->isAliveS()))
+        if ((*c)==nullptr||!((*c)->isAlive()))
         {
             continue;
         }
@@ -33,7 +33,7 @@ Character *ariel::SmartTeam::ClosestNinjaToMyCowboy(Team *enemy)
         {
             continue;
         }
-        if (!((*c)->isAliveS()))
+        if (!((*c)->isAlive()))
             {
                 continue;
             }
@@ -43,7 +43,7 @@ Character *ariel::SmartTeam::ClosestNinjaToMyCowboy(Team *enemy)
             {
                 continue;
             }
-            if (!((*c)->isAliveS()))
+            if (!((*c)->isAlive()))
             {
                 continue;
             }
@@ -66,7 +66,7 @@ Character *ariel::SmartTeam::ClosestNinjaToNinja(Point p, Team *enemy)
             {
                 continue;
             }
-            if (!((*c)->isAliveS()))
+            if (!((*c)->isAlive()))
             {
                 continue;
             }
@@ -76,7 +76,7 @@ Character *ariel::SmartTeam::ClosestNinjaToNinja(Point p, Team *enemy)
                 {
                     continue;
                 }
-                if (!((*c)->isAliveS()))
+                if (!((*c)->isAlive()))
                 {
                     continue;
                 }
@@ -103,7 +103,7 @@ Character* ariel::SmartTeam::ClosestCowboyToPoint(Point p,Team *enemy)
         {
             if((*c)!=nullptr&&isCowboy((*c))){
                 
-            if (!((*c)->isAliveS()))
+            if (!((*c)->isAlive()))
             {
                 continue;
             }
@@ -130,7 +130,7 @@ Character* ariel::SmartTeam::FurthestCowboyToPoint(Point p,Team *enemy)
         {
             if((*c)!=nullptr&&isCowboy((*c))){
                 
-            if (!((*c)->isAliveS()))
+            if (!((*c)->isAlive()))
             {
                 continue;
             }
@@ -157,14 +157,14 @@ void ariel::SmartTeam::attackNinja(Character *enemy)
         {
             continue;
         }
-        if (!((*c)->isAliveS()))
+        if (!((*c)->isAlive()))
         {
             continue;
         }
         if(isNinja((*c)))
         {
             
-            if(enemy->isAliveS())
+            if(enemy->isAlive())
                 (*c)->attack(enemy);
         }
     }
@@ -177,13 +177,13 @@ void ariel::SmartTeam::attackCowboy(Character *enemy)
         {
             continue;
         }
-        if (!((*c)->isAliveS()))
+        if (!((*c)->isAlive()))
         {
             continue;
         }
         if(isCowboy((*c)))
         {
-            if(enemy->isAliveS())
+            if(enemy->isAlive())
                 (*c)->attack(enemy);
         }
     }
@@ -196,7 +196,7 @@ bool ariel::SmartTeam::hasCowboy(Team *enemy)
         {
             continue;
         }
-        if (!((*c)->isAliveS()))
+        if (!((*c)->isAlive()))
         {
             continue;
         }
@@ -229,7 +229,7 @@ void ariel::SmartTeam::attack(Team *enemy)
             {
                 continue;
             }
-            if (!((*c)->isAliveS()))
+            if (!((*c)->isAlive()))
             {
                 continue;
             }

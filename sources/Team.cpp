@@ -15,13 +15,11 @@ namespace ariel
     }
     Team::~Team()
     {
-        for (list<Character *>::iterator c = getTeam().begin(); c != getTeam().end(); c++)
+        for (auto c = team.begin(); c != team.end(); c++)
         {
-            if ((*c)!=nullptr)
-            {
-                delete *c;
-            }
+            delete *c;
         }
+        team.clear();
     }
     void Team::add(Character *fighter)
     {

@@ -21,11 +21,10 @@ namespace ariel {
             bool isInTeam();
             void setIsCapten(bool capten);
             void setInTeam(bool isInTeam);
-            virtual ~Character() = default;    
+            virtual ~Character() {};    
             Character(std::string name, Point location, int hit_point);
             virtual std::string print();
             bool isAlive();
-            bool isAliveS();
             virtual void attack(Character* enemy)=0;
             Point getLocation() const;
             double distance(const Character* other) const;

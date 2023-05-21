@@ -17,7 +17,7 @@ void ariel::Character::setIsCapten(bool capten)
 }
 void ariel::Character::setInTeam(bool isInTeam)
 {
-    inTeam = isInTeam;
+    this->inTeam = isInTeam;
 }
 Character::Character(string name, Point location, int health) : name(name), location(location), health(health)
 {
@@ -51,9 +51,6 @@ int Character::getHealth() {
     return this->health;
 }
 bool Character::isAlive(){
-    return health > 0;
-}
-bool Character::isAliveS(){
     return health > 0;
 }
 string Character::getName() const{
