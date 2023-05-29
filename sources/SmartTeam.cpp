@@ -25,7 +25,7 @@ Point ariel::SmartTeam::avgLocationNinjas()
 }
 Character *ariel::SmartTeam::ClosestNinjaToMyCowboy(Team *enemy)
 {
-    double currntClosestNinjaDistance = 201;
+    double currntClosestNinjaDistance = DBL_MAX;
     Character *closest = nullptr;
     for (auto c = getTeam().begin(); c != getTeam().end(); c++)
     {

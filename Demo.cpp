@@ -31,7 +31,7 @@ auto simulate_battle = [](Team &team, Team &team2) {
         i++;
     }
       };
-    double random_float(double min = -1000, double max = 1000) {
+    double random_float(double min = -250, double max = 250) {
     std::default_random_engine generator(static_cast<unsigned long>(std::chrono::system_clock::now().time_since_epoch().count()));
     std::uniform_real_distribution<double> distribution(min, max);
 
@@ -102,7 +102,7 @@ int main() {
      team2.add(create_cowboy());
      team2.add(create_yninja());
      team2.add(create_yninja());
-     team2.add(create_yninja());
+     team2.add(create_oninja());
      team2.add(create_oninja());
      team2.add(create_oninja());
      team2.add(create_tninja());
@@ -129,7 +129,7 @@ int main() {
      team2.add(create_cowboy());
      team2.add(create_yninja());
      team2.add(create_yninja());
-     team2.add(create_yninja());
+     team2.add(create_oninja());
      team2.add(create_oninja());
      team2.add(create_oninja());
      team2.add(create_tninja());
@@ -159,7 +159,7 @@ int main() {
      team2.add(create_cowboy());
      team2.add(create_yninja());
      team2.add(create_yninja());
-     team2.add(create_yninja());
+     team2.add(create_oninja());
      team2.add(create_oninja());
      team2.add(create_oninja());
      team2.add(create_tninja());
@@ -176,21 +176,21 @@ int main() {
      team1.add(create_cowboy());
      team1.add(create_yninja());
      team1.add(create_yninja());
-     team1.add(create_yninja());
-     team1.add(create_yninja());
-     team1.add(create_yninja());
-     team1.add(create_yninja());
-     team1.add(create_yninja());
+     team1.add(create_oninja());
+     team1.add(create_oninja());
+     team1.add(create_oninja());
+     team1.add(create_tninja());
+     team1.add(create_tninja());
      Team team2 = Team(create_cowboy());
      team2.add(create_cowboy());
      team2.add(create_cowboy());
      team2.add(create_yninja());
      team2.add(create_yninja());
-     team2.add(create_yninja());
-     team2.add(create_yninja());
-     team2.add(create_yninja());
-     team2.add(create_yninja());
-     team2.add(create_yninja());
+     team2.add(create_oninja());
+     team2.add(create_oninja());
+     team2.add(create_oninja());
+     team2.add(create_tninja());
+     team2.add(create_tninja());
     simulate_battle(team2,team1); 
         if (team2.stillAlive() > 0)
             w2++;
