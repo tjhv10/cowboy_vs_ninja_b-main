@@ -140,9 +140,9 @@ int main() {
         else w1++;
      }
      cout<<w1<<" "<<w2<<endl;
-    //smart team against dumb team
-   w1=0,w2 =0;
-   for (size_t i = 0; i < 5000; i++)
+    //Dumb team against dumb team
+    w1=0,w2 =0;
+    for (size_t i = 0; i < 5000; i++)
      {
      Team team1 = Team(create_cowboy());
      team1.add(create_cowboy());
@@ -164,7 +164,7 @@ int main() {
      team2.add(create_oninja());
      team2.add(create_tninja());
      team2.add(create_tninja());
-    simulate_battle(team1,team2); 
+     simulate_battle(team1,team2); 
         if (team2.stillAlive() > 0)
             w2++;
         else w1++;
@@ -191,7 +191,7 @@ int main() {
      team2.add(create_oninja());
      team2.add(create_tninja());
      team2.add(create_tninja());
-    simulate_battle(team2,team1); 
+     simulate_battle(team2,team1); 
         if (team2.stillAlive() > 0)
             w2++;
         else w1++;
