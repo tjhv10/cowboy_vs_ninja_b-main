@@ -62,6 +62,7 @@ int main() {
     OldNinja *sushi = new OldNinja("sushi", b);
     tom->shoot(sushi);
     cout << tom->print() <<endl;
+    cout <<sushi->print() <<endl;
     sushi->move(tom);
     sushi->slash(tom);
 
@@ -84,8 +85,8 @@ int main() {
      if (team_A.stillAlive() > 0) cout << "winner is team_A" << endl;
      else cout << "winner is team_B" << endl;
      //smart team against dumb team
-   int w1=0,w2 =0;
-   for (size_t i = 0; i < 5000; i++)
+     int w1=0,w2 =0;
+     for (size_t i = 0; i < 5000; i++)
      {
      SmartTeam team1 = SmartTeam(create_cowboy());
      team1.add(create_cowboy());
